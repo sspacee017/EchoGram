@@ -1,0 +1,15 @@
+/Upstream/
+/.build/
+/dist/
+.DS_Store
+xcuserdata/
+*.xcuserstate
+.env
+.env.*
+telegram-api.json
+*.session
+*.pem
+*.key
+*.p12
+*.mobileprovision
+*.provisionprofile
