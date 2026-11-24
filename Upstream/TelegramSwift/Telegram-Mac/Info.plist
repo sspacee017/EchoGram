@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>ATSApplicationFontsPath</key>
+	<string>fonts</string>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>en</string>
+	<key>CFBundleDisplayName</key>
+	<string>EchoGram</string>
+	<key>CFBundleExecutable</key>
+	<string>$(EXECUTABLE_NAME)</string>
+	<key>CFBundleIconFile</key>
+	<string>EchoGramIcon</string>
+	<key>CFBundleIconName</key>
+	<string>EchoGramIcon</string>
+	<key>CFBundleIdentifier</key>
+	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundleName</key>
+	<string>$(PRODUCT_NAME)</string>
+	<key>CFBundlePackageType</key>
+	<string>APPL</string>
+	<key>CFBundleShortVersionString</key>
+	<string>$(MARKETING_VERSION)</string>
+	<key>CFBundleVersion</key>
+	<string>283467</string>
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<false/>
+	<key>LSApplicationCategoryType</key>
+	<string>public.app-category.social-networking</string>
+	<key>LSFileQuarantineEnabled</key>
+	<true/>
+	<key>LSMinimumSystemVersion</key>
+	<string>$(MACOSX_DEPLOYMENT_TARGET)</string>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
+	</dict>
+	<key>NSCameraUsageDescription</key>
+	<string>We need access to your camera so that you can record video messages.</string>
+	<key>NSDownloadsFolderUsageDescription</key>
+	<string>We need access to your Downloads folder so that you can save files from chats.</string>
+	<key>NSHumanReadableCopyright</key>
+	<string>Based on Telegram for macOS. Licensed under GNU GPL v2.</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>We need access to your location so that you can send your current locations and setup Auto-Night theme</string>
+	<key>NSLocationUsageDescription</key>
+	<string>We need access to your location so that you can send your current locations.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>We need access to your location so that you can send your current locations.</string>
+	<key>NSMainNibFile</key>
+	<string>MainMenu</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>We need access to your microphone so that you can record voice messages and make calls.</string>
+	<key>NSPrincipalClass</key>
+	<string>NSApplication</string>
+	<key>NSSpeechRecognitionUsageDescription</key>
+	<string>Speech recognition is used to turn what you dictate into message text. Recognition happens on your Mac whenever possible.</string>
+	<key>NSSupportsAutomaticGraphicsSwitching</key>
+	<true/>
+	<key>SOURCE</key>
+	<string>${SOURCE}</string>
+	<key>UIAppFonts</key>
+	<array>
+		<string>SFCompactRounded-Semibold.otf</string>
+	</array>
+</dict>
+</plist>

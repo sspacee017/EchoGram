@@ -1,0 +1,10 @@
+// Configuration settings file format documentation can be found at:
+// https://help.apple.com/xcode/#/dev745c5c974
+
+
+#include "common.xcconfig"
+
+SOURCE = DEBUG
+
+TYPE = -D'BETA'
+OTHER_SWIFT_FLAGS = $(TYPE)

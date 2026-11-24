@@ -1,0 +1,32 @@
+[submodule "submodules/libtgvoip"]
+	path = Upstream/TelegramSwift/submodules/libtgvoip
+	url = https://github.com/telegramdesktop/libtgvoip
+[submodule "submodules/Sparkle"]
+	path = Upstream/TelegramSwift/submodules/Sparkle
+	url = https://github.com/macosswift/sparkle.git
+	branch = master
+[submodule "submodules/telegram-ios"]
+	branch = master
+	path = Upstream/TelegramSwift/submodules/telegram-ios
+	url = https://github.com/TelegramMessenger/Telegram-iOS
+[submodule "submodules/tgcalls"]
+	path = Upstream/TelegramSwift/submodules/tgcalls
+	url = https://github.com/TelegramMessenger/tgcalls.git
+[submodule "submodules/tg_owt"]
+	path = Upstream/TelegramSwift/submodules/tg_owt
+	url = https://github.com/macosswift/tg_owt.git
+[submodule "submodules/libprisma"]
+	path = Upstream/TelegramSwift/submodules/libprisma
+	url = https://github.com/TelegramMessenger/libprisma.git
+[submodule "submodules/regex"]
+	path = Upstream/TelegramSwift/submodules/regex
+	url = https://github.com/boostorg/regex.git
+[submodule "third-party/twidget"]
+	path = Upstream/TelegramSwift/third-party/twidget
+	url = https://github.com/TelegramMessenger/twidget.git
+[submodule "submodules/tlottie"]
+	path = Upstream/TelegramSwift/submodules/tlottie
+	url = https://github.com/dkaraush/tlottie.git
+[submodule "third-party/widget-sandbox"]
+	path = Upstream/TelegramSwift/third-party/widget-sandbox
+	url = https://github.com/TelegramMessenger/widget-sandbox.git

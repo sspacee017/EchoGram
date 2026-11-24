@@ -2,7 +2,7 @@
 
 EchoGram изменяет исходники Telegram для macOS. Снимок изменений подготовлен 24 ноября 2026 года на базе коммита `38309ec95e59be3958d1e6fe9be331d72527a38d`.
 
-Список ниже относится к файлам в `echogram.patch`. Изменения для Telegram-iOS входят в исходный проект Telegram для macOS и применяются его скриптом сборки.
+Список ниже относится к файлам в `Upstream/TelegramSwift`. Изменения для Telegram-iOS входят в исходный проект Telegram для macOS и применяются его скриптом сборки.
 
 A — добавлен, D — удалён, M — изменён.
 
@@ -68,3 +68,6 @@ M	packages/TGUIKit/Tests/TGUIKitTests/SplitViewContinuousDragTests.swift
 M	packages/TelegramTheme/Sources/TelegramTheme/Appearance.swift
 M	packages/TelegramTheme/Sources/TelegramTheme/TelegramPresentationTheme.swift
 ```
+
+Из настроек публикации удалены значения `APPCENTER_SECRET` для Alpha, Beta и Stable.
+В архиве исходников скрипт проверки iOS также читает реквизиты API из окружения.
