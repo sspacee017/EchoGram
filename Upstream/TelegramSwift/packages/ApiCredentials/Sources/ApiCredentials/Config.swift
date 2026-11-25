@@ -1,4 +1,5 @@
 import Cocoa
+import CompiledTelegramAPI
 import Darwin
 
 public final class ApiEnvironment {
@@ -74,11 +75,18 @@ public final class ApiEnvironment {
     }
 
     private static func loadCredentials() -> (status: CredentialStatus, credentials: Credentials?) {
+        let buildApiId = EchoGramCompiledApiId()
+        if buildApiId > 0, let buildApiHash = EchoGramCompiledApiHash() {
+            return (.ready, Credentials(apiId: buildApiId, apiHash: String(cString: buildApiHash)))
+        }
         guard let directory = credentialDirectory else {
             return (.inaccessible, nil)
         }
-        let path = directory.appendingPathComponent(credentialFileName).path
-        let descriptor = open(path, O_RDONLY | O_NOFOLLOW | O_NONBLOCK | O_CLOEXEC)
+        return readCredentials(at: directory.appendingPathComponent(credentialFileName))
+    }
+
+    private static func readCredentials(at url: URL) -> (status: CredentialStatus, credentials: Credentials?) {
+        let descriptor = open(url.path, O_RDONLY | O_NOFOLLOW | O_NONBLOCK | O_CLOEXEC)
         guard descriptor >= 0 else {
             return (errno == ENOENT ? .missing : .inaccessible, nil)
         }

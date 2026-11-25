@@ -9,11 +9,16 @@ OUTPUT="$WORKSPACE/dist"
 APP="$OUTPUT/EchoGram.app"
 APP_ONLY=NO
 BUILD_MODE=optimized
+QR_RELEASE=NO
+GENERATED_API=""
+STAGING=""
+BUILD_LOCK=""
 
 for argument in "$@"; do
     case "$argument" in
         --app-only) APP_ONLY=YES ;;
         --debug) BUILD_MODE=debug ;;
+        --qr-release) QR_RELEASE=YES ;;
         *) printf 'Unknown argument: %s\n' "$argument" >&2; exit 2 ;;
     esac
 done
@@ -37,7 +42,54 @@ if [[ "$BUILD_MODE" == optimized ]]; then
 fi
 
 test -d "$FORK/Telegram-Mac.xcworkspace"
-mkdir -p "$BUILD_DIR" "$OUTPUT"
+mkdir -p "$BUILD_DIR"
+if [[ "$QR_RELEASE" == YES ]]; then
+    OUTPUT="$WORKSPACE/.build/qr-release"
+    APP="$OUTPUT/EchoGram.app"
+fi
+mkdir -p "$OUTPUT"
+if [[ "$QR_RELEASE" == YES ]]; then
+    chmod 700 "$OUTPUT"
+fi
+
+cleanup() {
+    if [[ -n "$GENERATED_API" && -f "$GENERATED_API" ]]; then
+        unlink "$GENERATED_API"
+        touch "$API_SOURCE"
+    fi
+    if [[ -n "$STAGING" ]]; then
+        python3 -c 'import shutil, sys; shutil.rmtree(sys.argv[1])' "$STAGING"
+    fi
+    if [[ -n "$BUILD_LOCK" ]]; then
+        rmdir "$BUILD_LOCK"
+    fi
+}
+if ! mkdir "$BUILD_DIR/build.lock"; then
+    printf 'Another EchoGram build is using this checkout.\n' >&2
+    exit 1
+fi
+BUILD_LOCK="$BUILD_DIR/build.lock"
+trap cleanup EXIT
+trap 'exit 130' INT
+trap 'exit 143' TERM
+
+API_PACKAGE="$FORK/packages/ApiCredentials"
+API_SOURCE="$API_PACKAGE/Sources/CompiledTelegramAPI/CompiledTelegramAPI.c"
+credential_header="$(dirname "$API_SOURCE")/EchoGramGeneratedAPI.h"
+if [[ -e "$credential_header" || -L "$credential_header" ]]; then
+    printf 'Remove the generated API header left in the build checkout before retrying.\n' >&2
+    exit 1
+fi
+if [[ "$QR_RELEASE" == YES ]]; then
+    credential_file="${ECHOGRAM_TELEGRAM_API_FILE:-}"
+    if [[ -z "$credential_file" && -z "${ECHOGRAM_TELEGRAM_API_ID:-}" && -z "${ECHOGRAM_TELEGRAM_API_HASH:-}" ]]; then
+        credential_file="$HOME/Library/Application Support/dev.echogram.fork/telegram-api.json"
+    fi
+    GENERATED_API="$credential_header"
+    python3 "$API_PACKAGE/generate-credentials.py" "$credential_file" "$credential_header"
+    touch "$API_SOURCE"
+fi
+unset ECHOGRAM_TELEGRAM_API_FILE ECHOGRAM_TELEGRAM_API_ID ECHOGRAM_TELEGRAM_API_HASH
 
 export PATH="$(brew --prefix rustup)/bin:$PATH"
 export RUSTUP_HOME="$BUILD_DIR/rustup"
@@ -70,7 +122,6 @@ BUILT="$DERIVED_DATA/Build/Products/Debug/EchoGram.app"
 test -x "$BUILT/Contents/MacOS/EchoGram"
 codesign --verify --deep --strict "$BUILT"
 STAGING="$(mktemp -d "$OUTPUT/.native.XXXXXX")"
-trap 'rm -rf "$STAGING"' EXIT
 ditto "$BUILT" "$STAGING/EchoGram.app"
 if [[ -d "$APP" ]]; then mv "$APP" "$STAGING/previous.app"; fi
 if ! mv "$STAGING/EchoGram.app" "$APP"; then

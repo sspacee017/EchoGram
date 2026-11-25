@@ -71,3 +71,7 @@ M	packages/TelegramTheme/Sources/TelegramTheme/TelegramPresentationTheme.swift
 
 Из настроек публикации удалены значения `APPCENTER_SECRET` для Alpha, Beta и Stable.
 В архиве исходников скрипт проверки iOS также читает реквизиты API из окружения.
+
+## EchoGram 0.2.0
+
+25 ноября 2026 года добавлена сборка с входом по QR без ручной настройки. Изменения загрузки реквизитов находятся в пакете `ApiCredentials`.
